@@ -1,4 +1,4 @@
-class TournamentsController < ApplicationController
+class Api::V1::TournamentsController < ApplicationController
   before_action :set_tournament, only: [:show, :update, :destroy]
 
   # GET /tournaments
@@ -18,9 +18,15 @@ class TournamentsController < ApplicationController
     @tournament = Tournament.new(tournament_params)
 
     if @tournament.save
-      render json: @tournament, status: :created, location: @tournament
+      render json: {
+        status: 201,
+        tournament: @tournament
+        }, status: :created
     else
-      render json: @tournament.errors, status: :unprocessable_entity
+      render json: {
+          status: 422,
+          errors: @tournament.errors.full_messages.join(", ")
+      }, status: :unprocessable_entity
     end
   end
 

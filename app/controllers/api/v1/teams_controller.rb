@@ -1,4 +1,4 @@
-class TeamsController < ApplicationController
+class Api::V1::TeamsController < ApplicationController
   before_action :set_team, only: [:show, :update, :destroy]
 
   # GET /teams
@@ -18,9 +18,15 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
 
     if @team.save
-      render json: @team, status: :created, location: @team
+      render json: {
+        status: 201,
+        team: @team
+        }, status: :created
     else
-      render json: @team.errors, status: :unprocessable_entity
+      render json: {
+          status: 422,
+          errors: @team.errors.full_messages.join(", ")
+      }, status: :unprocessable_entity
     end
   end
 
