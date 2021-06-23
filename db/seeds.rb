@@ -106,3 +106,13 @@ team_twelve = Team.create(
     player_count: 2,
     ranked: 12
 )
+
+game_one = Game.create(
+    score: "25-23",
+    winning_team: "NoTengoDinero",
+    opponent_id: 12,
+    opponent_name: "Tunkhannock",
+    team_id: 11,
+    tournament_id: 1,
+    quantity: 12
+)
