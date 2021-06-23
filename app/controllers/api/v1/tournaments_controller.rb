@@ -52,6 +52,6 @@ class Api::V1::TournamentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tournament_params
-      params.fetch(:tournament, {})
+      params.require(:tournament).permit(:tourney_name, :date, :description, :)
     end
 end
