@@ -5,12 +5,12 @@ class Api::V1::TournamentsController < ApplicationController
   def index
     @tournaments = Tournament.all
 
-    render json: @tournaments
+    render json: @tournaments, except: [:created_at, :updated_at]
   end
 
   # GET /tournaments/1
   def show
-    render json: @tournament
+    render json: @tournament, except: [:created_at, :updated_at]
   end
 
   # POST /tournaments
@@ -21,7 +21,7 @@ class Api::V1::TournamentsController < ApplicationController
       render json: {
         status: 201,
         tournament: @tournament
-        }, status: :created
+        }, status: :created, location: api_v1_tournament_path(@tournament)
     else
       render json: {
           status: 422,
@@ -33,9 +33,15 @@ class Api::V1::TournamentsController < ApplicationController
   # PATCH/PUT /tournaments/1
   def update
     if @tournament.update(tournament_params)
-      render json: @tournament
+      render json: {
+        status: 204,
+        tournament: @tournament
+      }
     else
-      render json: @tournament.errors, status: :unprocessable_entity
+      render json: {
+        status: 400,
+        errors: @tournament.errors.full_messages.join(", ")
+      }, status: :unprocessable_entity
     end
   end
 
@@ -52,6 +58,6 @@ class Api::V1::TournamentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tournament_params
-      params.require(:tournament).permit(:tourney_name, :date, :description, :)
+      params.require(:tournament).permit(:tourney_name, :date, :description, :host, :winner)
     end
 end
