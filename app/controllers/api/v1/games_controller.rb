@@ -20,7 +20,7 @@ class Api::V1::GamesController < ApplicationController
     if @game.save
       render json: {
         status: 201,
-        tournament: @game
+        game: @game
       }, status: :created, location: api_v1_game_path(@game)
     else
       render json: {
