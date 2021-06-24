@@ -19,18 +19,15 @@ ActiveRecord::Schema.define(version: 2021_06_18_182906) do
     t.string "score"
     t.integer "game_number"
     t.string "winning_team"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "team_tournaments", force: :cascade do |t|
+    t.integer "opponent_id"
+    t.string "opponent_name"
     t.bigint "team_id"
     t.bigint "tournament_id"
     t.integer "quantity", default: 12
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["team_id"], name: "index_team_tournaments_on_team_id"
-    t.index ["tournament_id"], name: "index_team_tournaments_on_tournament_id"
+    t.index ["team_id"], name: "index_games_on_team_id"
+    t.index ["tournament_id"], name: "index_games_on_tournament_id"
   end
 
   create_table "teams", force: :cascade do |t|
