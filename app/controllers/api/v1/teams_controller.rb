@@ -5,12 +5,12 @@ class Api::V1::TeamsController < ApplicationController
   def index
     @teams = Team.all
 
-    render json: @teams
+    render json: @teams, except: [:created_at, :updated_at]
   end
 
   # GET /teams/1
   def show
-    render json: @team
+    render json: @team, except: [:created_at, :updated_at]
   end
 
   # POST /teams
@@ -21,7 +21,7 @@ class Api::V1::TeamsController < ApplicationController
       render json: {
         status: 201,
         team: @team
-        }, status: :created
+        }, status: :created, location: api_v1_team_path(@team)
     else
       render json: {
           status: 422,
@@ -33,9 +33,15 @@ class Api::V1::TeamsController < ApplicationController
   # PATCH/PUT /teams/1
   def update
     if @team.update(team_params)
-      render json: @team
+      render json: {
+         status: 204,
+         tournament: @team
+      }
     else
-      render json: @team.errors, status: :unprocessable_entity
+      render json: {
+        status: 400,
+        errors: @team.errors.full_messages.join(", ")
+      }, status: :unprocessable_entity
     end
   end
 
@@ -52,6 +58,6 @@ class Api::V1::TeamsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def team_params
-      params.fetch(:team, {})
+      params.require(:team).permit(:team_name, :players, :team_captain, :player_count, :ranked)
     end
 end
