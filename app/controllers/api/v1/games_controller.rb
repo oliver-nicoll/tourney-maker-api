@@ -18,18 +18,30 @@ class Api::V1::GamesController < ApplicationController
     @game = Game.new(game_params)
 
     if @game.save
-      render json: @game, status: :created, location: @game
+      render json: {
+        status: 201,
+        tournament: @game
+      }, status: :created, location: api_v1_game_path(@game)
     else
-      render json: @game.errors, status: :unprocessable_entity
+      render json: {
+      status: 422,
+      errors: @game.errors.full_messages.join(", ")
+      }, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /games/1
   def update
     if @game.update(game_params)
-      render json: @game
+      render json: {
+        status: 204,
+        tournament: @game
+      }
     else
-      render json: @game.errors, status: :unprocessable_entity
+      render json: {
+      status: 400, 
+      errors: @game.errors.full_messages.join(", ")
+      }, status: :unprocessable_entity
     end
   end
 
@@ -46,6 +58,6 @@ class Api::V1::GamesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def game_params
-      params.fetch(:game, {})
+      params.require(:game).permit(:score, :game_number, :winning_team, :opponent_id, :opponent_name, :team_id, :tournament_id, :quantity)
     end
 end
