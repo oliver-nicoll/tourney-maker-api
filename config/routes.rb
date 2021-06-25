@@ -1,12 +1,8 @@
 Rails.application.routes.draw do
-  # resources :tournaments
-  # resources :games
-  # resources :teams
-
   namespace :api do
     namespace :v1 do
-      resources :tournaments, only: [:index, :show, :create]
-      resources :teams, only: [:index, :show, :create]
+      resources :tournaments
+      resources :teams
       resources :games
     end
   end
