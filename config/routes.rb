@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+  resources :registrations
   namespace :api do
     namespace :v1 do
-      resources :tournaments
+      resources :tournaments do
+        resources :registrations, only: [:create, :destroy] 
+      end
       resources :teams
-      resources :games
     end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
