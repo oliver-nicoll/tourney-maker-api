@@ -10,24 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_18_182906) do
+ActiveRecord::Schema.define(version: 2021_06_25_154330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "games", force: :cascade do |t|
     t.string "score"
-    t.integer "game_number"
     t.string "winning_team"
-    t.integer "opponent_id"
     t.string "opponent_name"
     t.bigint "team_id"
     t.bigint "tournament_id"
-    t.integer "quantity", default: 12
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["team_id"], name: "index_games_on_team_id"
     t.index ["tournament_id"], name: "index_games_on_tournament_id"
+  end
+
+  create_table "registrations", force: :cascade do |t|
+    t.bigint "team_id"
+    t.bigint "tournament_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["team_id"], name: "index_registrations_on_team_id"
+    t.index ["tournament_id"], name: "index_registrations_on_tournament_id"
   end
 
   create_table "teams", force: :cascade do |t|
@@ -45,7 +51,6 @@ ActiveRecord::Schema.define(version: 2021_06_18_182906) do
     t.string "date"
     t.text "description"
     t.string "host"
-    t.string "winner", default: "none"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
