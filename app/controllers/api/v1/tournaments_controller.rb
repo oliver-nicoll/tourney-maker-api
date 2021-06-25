@@ -21,7 +21,7 @@ class Api::V1::TournamentsController < ApplicationController
       render json: {
         status: 201,
         tournament: @tournament
-        }, status: :created, location: api_v1_tournament_path(@tournament)
+        }, status: :created, location: api_v1_tournaments_path(@tournament)
     else
       render json: {
           status: 422,
