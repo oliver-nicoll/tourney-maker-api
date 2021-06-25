@@ -21,7 +21,7 @@ class Api::V1::TeamsController < ApplicationController
       render json: {
         status: 201,
         team: @team
-        }, status: :created, location: api_v1_team_path(@team)
+        }, status: :created, location: api_v1_teams_path(@team)
     else
       render json: {
           status: 422,
