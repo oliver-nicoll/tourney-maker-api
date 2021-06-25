@@ -5,6 +5,9 @@ class Api::V1::TeamsController < ApplicationController
   def index
     @teams = Team.all
 
+    #@teams.find_by(team_id: team.id)
+    # @shuffle_teams = @teams.shuffle
+    
     render json: @teams, except: [:created_at, :updated_at]
   end
 
