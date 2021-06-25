@@ -10,7 +10,7 @@ tourney_one = Tournament.create(
     tourney_name: "Berwick Brawl",
     date: "July 12, 2021",
     description: "Come join the fun! Doubles Grass Tournament. Winner recieves $500.00, a plaque and bragging rights",
-    host: "Sarah Evens",
+    host: "Sarah Evens",   
 )
 
 team_one = Team.create(
@@ -107,12 +107,10 @@ team_twelve = Team.create(
     ranked: 12
 )
 
-game_one = Game.create(
-    score: "25-23",
-    winning_team: "NoTengoDinero",
-    opponent_id: 12,
-    opponent_name: "Tunkhannock",
-    team_id: 11,
-    tournament_id: 1,
-    quantity: 12
-)
+# game_one = Game.create(
+#     score: "25-23",
+#     winning_team: "NoTengoDinero",
+#     opponent_name: "Tunkhannock",
+#     team_id: 11,
+#     tournament_id: 1,
+# )
