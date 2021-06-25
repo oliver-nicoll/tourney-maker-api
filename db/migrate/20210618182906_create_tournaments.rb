@@ -5,7 +5,6 @@ class CreateTournaments < ActiveRecord::Migration[6.1]
       t.string :date
       t.text :description
       t.string :host
-      t.string :winner, default: 'none'
 
       t.timestamps
     end
