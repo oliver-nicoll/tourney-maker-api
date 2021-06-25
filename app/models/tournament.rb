@@ -1,4 +1,7 @@
 class Tournament < ApplicationRecord
-    has_many :games
-    has_many :teams, through: :games
+    has_many :registrations
+    has_many :teams, through: :registrations
+
+    validates :tourney_name, presence: true
+
 end
