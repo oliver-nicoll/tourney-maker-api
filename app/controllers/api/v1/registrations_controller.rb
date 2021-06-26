@@ -1,6 +1,8 @@
 class Api::V1::RegistrationsController < ApplicationController
-  before_action :set_registration only: [:destroy]
+  before_action :set_registration, only: :destroy
   before_action :set_tournament 
+  before_action :set_team 
+
 
 
   # # GET /registrations
@@ -17,7 +19,10 @@ class Api::V1::RegistrationsController < ApplicationController
 
   # POST /registrations
   def create
+    
+    byebug
     @registration = @tournament.registrations.build(registration_params)
+    
 
     if @registration.save
       render json:{
@@ -30,6 +35,7 @@ class Api::V1::RegistrationsController < ApplicationController
           errors: @registration.errors.full_messages.join(", ")
       }, status: :unprocessable_entity
     end
+
   end
 
   # # PATCH/PUT /registrations/1
@@ -54,6 +60,14 @@ class Api::V1::RegistrationsController < ApplicationController
 
     def set_tournament
       @tournament = Tournament.find_by_id(params[:tournament_id])
+    end
+
+    def set_team
+      @team = Team.find_by_id(params[:team_id])
+    end
+
+    def find_team
+      @teamname = Team.find_by(params[:team_name])
     end
 
     # Only allow a list of trusted parameters through.
