@@ -5,7 +5,8 @@ class Api::V1::TournamentsController < ApplicationController
   def index
     @tournaments = Tournament.all
 
-    render json: @tournaments, except: [:created_at, :updated_at]
+    render json: @tournaments, except: [:created_at, :updated_at], include: :teams
+    
   end
 
   # GET /tournaments/1
@@ -58,6 +59,6 @@ class Api::V1::TournamentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tournament_params
-      params.require(:tournament).permit(:tourney_name, :date, :description, :host, :winner)
+      params.require(:tournament).permit(:tourney_name, :date, :description, :host)
     end
 end
