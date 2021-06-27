@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :tournaments do
-        resources :registrations, only: [:create, :destroy] 
+        resources :registrations, only: [:create, :show, :destroy] 
       end
       resources :teams
     end
