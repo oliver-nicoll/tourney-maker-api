@@ -1,7 +1,7 @@
 class Api::V1::RegistrationsController < ApplicationController
+  # before_action :set_team 
   before_action :set_registration, only: :destroy
   before_action :set_tournament 
-  before_action :set_team 
 
 
 
@@ -13,22 +13,21 @@ class Api::V1::RegistrationsController < ApplicationController
   # end
 
   # # GET /registrations/1
-  # def show
-  #   render json: @registration
-  # end
+  def show
+    render json: @registration
+  end
 
   # POST /registrations
   def create
     
-    byebug
+    # byebug
     @registration = @tournament.registrations.build(registration_params)
     
-
     if @registration.save
       render json:{
         status: 201,
         registration: @registration
-        }, status: :created, location: api_v1_registrations_path(@registration)
+        }, status: :created, location: api_v1_tournaments_path(@registration)
     else
       render json: {
           status: 422,
@@ -63,12 +62,11 @@ class Api::V1::RegistrationsController < ApplicationController
     end
 
     def set_team
-      @team = Team.find_by_id(params[:team_id])
+      
+      @team = Team.find_by(params[:team_id])
+      # @team.id
     end
 
-    def find_team
-      @teamname = Team.find_by(params[:team_name])
-    end
 
     # Only allow a list of trusted parameters through.
     def registration_params
