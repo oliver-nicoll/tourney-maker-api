@@ -5,12 +5,13 @@ class Api::V1::RegistrationsController < ApplicationController
 
 
 
-  # # GET /registrations
-  # def index
-  #   @registrations = Registration.all
+  # GET /registrations
+  def index
+    @registrations = Registration.all
 
-  #   render json: @registrations
-  # end
+    render json: @registrations, except: [:created_at, :updated_at]
+
+  end
 
   # # GET /registrations/1
   def show
