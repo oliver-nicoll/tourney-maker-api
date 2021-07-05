@@ -8,7 +8,7 @@ class Api::V1::TeamsController < ApplicationController
     #@teams.find_by(team_id: team.id)
     # @shuffle_teams = @teams.shuffle
     
-    render json: @teams, except: [:created_at, :updated_at]
+    render json: @teams, except: [:created_at, :updated_at], include: :tournaments
   end
 
   # GET /teams/1
